@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.portal.dao.ShareDao">
+    <!--<resultMap id="ResultMap" type="com.portal.entity.ShareRecord">-->
+        <!--<id column="ID" property="id" jdbcType="INTEGER" />-->
+        <!--<result column="RESULT_DATE" property="resultDate" jdbcType="VARCHAR" />-->
+        <!--<result column="RESULT_NOW" property="resultNow" jdbcType="VARCHAR" />-->
+        <!--<result column="RESULT_OPEN" property="resultOpen" jdbcType="VARCHAR" />-->
+        <!--<result column="RESULT_UP" property="resultUp" jdbcType="VARCHAR" />-->
+        <!--<result column="RESULT_DOWN" property="resultDown" jdbcType="VARCHAR" />-->
+    <!--</resultMap>-->
+
+    <insert id="insertOneRecord" parameterType="com.portal.dto.ShareInsertDto">
+        INSERT INTO Z_PORTAL (RESULT_DATE, RESULT_NOW, RESULT_OPEN, RESULT_UP, RESULT_DOWN)
+        VALUES (#{resultDate, jdbcType=VARCHAR}, #{resultNow, jdbcType=VARCHAR},
+        #{resultOpen, jdbcType=VARCHAR}, #{resultUp, jdbcType=VARCHAR}, #{resultDown, jdbcType=VARCHAR})
+    </insert>
+
+    <select id="selectTopOne" resultType="com.portal.entity.ShareRecord">
+        SELECT
+          ID AS id, RESULT_DATE AS resultDate, RESULT_NOW AS resultNow,
+          RESULT_OPEN AS resultOpen, RESULT_UP AS resultUp, RESULT_DOWN AS resultDown
+        FROM (
+          SELECT * FROM Z_PORTAL ORDER BY ID DESC
+        ) WHERE ROWNUM = 1
+    </select>
+
+</mapper>
