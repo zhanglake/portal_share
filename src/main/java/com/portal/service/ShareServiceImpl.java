@@ -43,6 +43,9 @@ public class ShareServiceImpl implements ShareService {
         }
         // 当前价格
         String now = dataList[3];
+        if ("0.000".equals(now)) {
+            return;
+        }
         // 开盘价
         String open = dataList[1];
         // 涨停
